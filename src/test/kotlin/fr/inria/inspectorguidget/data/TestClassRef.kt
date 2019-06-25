@@ -1,5 +1,6 @@
+package fr.inria.inspectorguidget.data
+
 import com.beust.klaxon.Klaxon
-import fr.inria.inspectorguidget.data.ClassRef
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
