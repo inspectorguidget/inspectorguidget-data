@@ -1,16 +1,16 @@
 package fr.inria.inspectorguidget.data
 
 import com.beust.klaxon.Klaxon
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class TestLocation {
 
     private lateinit var location: Location
     private var locationParsed: Location? = null
 
-    @Before
+    @BeforeEach
     fun initialise() {
         val classref = ClassRef("file", "className", "pkg")
         location = Location(1, 2, classref)

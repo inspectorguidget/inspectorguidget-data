@@ -1,21 +1,23 @@
 package fr.inria.inspectorguidget.data
 
 import com.beust.klaxon.Klaxon
-import org.junit.Before
-import org.junit.Test
-import org.junit.Assert.assertEquals
+
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class TestUICommand {
 
     private lateinit var cmd: UICommand
     private var cmdParsed: UICommand? = null
 
-    @Before
+    @BeforeEach
     fun init() {
         val listWidget = listOf<Widget>()
         val classeref = ClassRef("file", "className", "pkg")
         val location = Location(1, 2, classeref)
         val uses = listOf(classeref)
+
         cmd = UICommand(listWidget, location, uses)
 
         val result = Klaxon().toJsonString(cmd)

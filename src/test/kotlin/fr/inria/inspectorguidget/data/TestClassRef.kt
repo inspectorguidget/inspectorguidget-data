@@ -1,16 +1,16 @@
 package fr.inria.inspectorguidget.data
 
 import com.beust.klaxon.Klaxon
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class TestClassRef {
 
     private lateinit var classref: ClassRef
     private var classrefParsed: ClassRef? = null
 
-    @Before
+    @BeforeEach
     fun initialise() {
         classref = ClassRef("file", "classname", "pkg")
         val result = Klaxon().toJsonString(classref)

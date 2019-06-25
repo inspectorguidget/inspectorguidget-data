@@ -1,16 +1,16 @@
 package fr.inria.inspectorguidget.data
 
 import com.beust.klaxon.Klaxon
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class TestHandler {
 
     private lateinit var handler: Handler
     private var handlerParsed: Handler? = null
 
-    @Before
+    @BeforeEach
     fun initialise() {
 
         val classref = ClassRef("file", "classname", "pkg")

@@ -1,16 +1,16 @@
 package fr.inria.inspectorguidget.data
 
 import com.beust.klaxon.Klaxon
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class TestWidget {
 
     private lateinit var widget: Widget
     private var widgetParsed: Widget? = null
 
-    @Before
+    @BeforeEach
     fun init() {
 
         val listLocation = listOf(Location(1, 2, ClassRef("file", "className", "pkg")))
