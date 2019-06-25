@@ -6,8 +6,8 @@ import org.junit.Test
 
 class TestClassRef {
 
-    private lateinit var classref : ClassRef
-    private var classrefParsed : ClassRef? = null
+    private lateinit var classref: ClassRef
+    private var classrefParsed: ClassRef? = null
 
     @Before
     fun initialise() {
@@ -17,18 +17,17 @@ class TestClassRef {
     }
 
     @Test
-    fun testFile(){
+    fun testFile() {
         assertEquals(classref.file, classrefParsed?.file)
     }
 
     @Test
-    fun testClassName(){
+    fun testClassName() {
         assertEquals(classref.className, classrefParsed?.className)
     }
 
     @Test
-    fun testPkg(){
+    fun testPkg() {
         assertEquals(classref.pkg, classrefParsed?.pkg)
     }
-
 }

@@ -6,13 +6,13 @@ import org.junit.Test
 
 class TestWidget {
 
-    private lateinit var widget : Widget
-    private var widgetParsed : Widget? = null
+    private lateinit var widget: Widget
+    private var widgetParsed: Widget? = null
 
     @Before
-    fun init(){
+    fun init() {
 
-        val listLocation = listOf(Location(1,2,ClassRef("file", "className", "pkg")))
+        val listLocation = listOf(Location(1, 2, ClassRef("file", "className", "pkg")))
         widget = Widget("id", "type", listLocation)
 
         val result = Klaxon().toJsonString(widget)
@@ -20,20 +20,17 @@ class TestWidget {
     }
 
     @Test
-    fun testId(){
+    fun testId() {
         assertEquals(widget.id, widgetParsed?.id)
     }
 
     @Test
-    fun testUsage(){
+    fun testUsage() {
         assertEquals(widget.usages, widgetParsed?.usages)
     }
 
     @Test
-    fun testType(){
+    fun testType() {
         assertEquals(widget.type, widgetParsed?.type)
     }
-
-
-
 }

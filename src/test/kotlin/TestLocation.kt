@@ -7,8 +7,8 @@ import org.junit.Test
 
 class TestLocation {
 
-    private lateinit var location : Location
-    private var locationParsed : Location? = null
+    private lateinit var location: Location
+    private var locationParsed: Location? = null
 
     @Before
     fun initialise() {
@@ -19,19 +19,17 @@ class TestLocation {
     }
 
     @Test
-    fun testLineStart(){
+    fun testLineStart() {
         assertEquals(location.lineStart, locationParsed?.lineStart)
     }
 
     @Test
-    fun testLineStop(){
+    fun testLineStop() {
         assertEquals(location.lineEnd, locationParsed?.lineEnd)
     }
 
     @Test
-    fun testClassref(){
+    fun testClassref() {
         assertEquals(location.classRef, locationParsed?.classRef)
     }
-
-
 }
