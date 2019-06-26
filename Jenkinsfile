@@ -31,7 +31,7 @@ pipeline {
                     def deployBody = '{"ref": "' + ref +'","environment": "' + environment  +'","description": "' + description + '"}'
 
                     // Create new Deployment using the GitHub Deployment API
-                    def response = httpRequest authentication: 'ElRichu-GH', httpMode: 'POST', requestBody: deployBody, responseHandle: 'STRING', url: deployURL
+                    def response = httpRequest authentication: 'ElRichu', httpMode: 'POST', requestBody: deployBody, responseHandle: 'STRING', url: deployURL
                     if(response.status != 201) {
                         error("Deployment API Create Failed: " + response.status)
                     }
