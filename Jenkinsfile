@@ -8,7 +8,6 @@ pipeline {
             steps {
 
                 script{
-                    env.PATH="${tool 'M3'}/bin:${env.PATH}"
                     scmVars = checkout scm
                 }
 
