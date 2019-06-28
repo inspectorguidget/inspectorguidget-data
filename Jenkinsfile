@@ -2,20 +2,58 @@ pipeline {
     agent any
 
     stages {
-        stage('Build and Verify') {
+
+        stage ('Clone') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                //going to build on the branch master
+                git branch: 'master', url: "https://github.com/inspectorguidget/inspectorguidget-data"
             }
         }
 
-        stage('Test') {
+        stage ('Artifactory configuration') {
             steps {
-                sh 'mvn test'
+                rtServer (
+                    id: "ARTIFACTORY_SERVER",
+                    url: http://maven.inria.fr/artifactory/webapp/#/home,
+                    credentialsId: credRepoInria                                  // add credentials in Jenkins
+                )
+
+                rtMavenDeployer (
+                    id: "MAVEN_DEPLOYER",
+                    serverId: "ARTIFACTORY_SERVER",
+                    releaseRepo: "libs-release-local",
+                    snapshotRepo: "libs-snapshot-local"
+                )
+
+                rtMavenResolver (
+                    id: "MAVEN_RESOLVER",
+                    serverId: "ARTIFACTORY_SERVER",
+                    releaseRepo: "libs-release",
+                    snapshotRepo: "libs-snapshot"
+                )
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
+        }
+
+        stage('Build Maven') {
+            steps {
+
+                rtMavenRun (
+                    tool: M3,                                                // Tool name from Jenkins configuration
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    deployerId: "MAVEN_DEPLOYER",
+                    resolverId: "MAVEN_RESOLVER"
+                )
+
+            }
+        }
+
+        stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "ARTIFACTORY_SERVER",
+                    buildName: 'inspectorguidget-data'
+                )
             }
         }
     }
