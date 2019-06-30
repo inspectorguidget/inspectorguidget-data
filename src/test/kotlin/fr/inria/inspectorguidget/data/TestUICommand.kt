@@ -13,20 +13,14 @@ class TestUICommand {
 
     @BeforeEach
     fun init() {
-        val listWidget = listOf<Widget>()
         val classeref = ClassRef("file", "className", "pkg")
         val location = Location(1, 2, classeref)
         val uses = listOf(classeref)
 
-        cmd = UICommand(listWidget, location, uses)
+        cmd = UICommand(location, uses)
 
         val result = Klaxon().toJsonString(cmd)
         cmdParsed = Klaxon().parse<UICommand>(result)
-    }
-
-    @Test
-    fun testWidget() {
-        assertEquals(cmd.widgets, cmdParsed?.widgets)
     }
 
     @Test

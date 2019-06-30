@@ -15,9 +15,7 @@ class TestHandler {
 
         val classref = ClassRef("file", "classname", "pkg")
         val location = Location(1, 2, classref)
-        val listWidget = listOf(Widget("id", "type", listOf(location)))
-        val listCmd = listOf<UICommand>()
-        handler = Handler("type", location, listWidget, listCmd)
+        handler = Handler("type", location)
 
         val result = Klaxon().toJsonString(handler)
         handlerParsed = Klaxon().parse<Handler>(result)
@@ -31,15 +29,5 @@ class TestHandler {
     @Test
     fun testLocation() {
         assertEquals(handler.location, handlerParsed?.location)
-    }
-
-    @Test
-    fun testWidget() {
-        assertEquals(handler.widgets, handlerParsed?.widgets)
-    }
-
-    @Test
-    fun testCmd() {
-        assertEquals(handler.cmds, handlerParsed?.cmds)
     }
 }
