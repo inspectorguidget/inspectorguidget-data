@@ -3,10 +3,17 @@ pipeline {
 
     stages {
 
-        stage ('Clone') {
+        stage ('Build') {
             steps {
                 //going to build on the branch master
                 git branch: 'master', url: "https://github.com/inspectorguidget/inspectorguidget-data"
+
+                withMaven (
+                    tool: 'Maven',                                                // Tool name from Jenkins configuration
+                    jdk: 'jdk11'
+                ) {
+                    sh "mvn clean install"
+                }
             }
         }
 
@@ -14,37 +21,16 @@ pipeline {
             steps {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
-                    url: "http://maven.inria.fr/artifactory/webapp/#/home",
+                    url: "http://maven.irisa.fr/artifactory",
                     credentialsId: 'credRepoInria'                                  // add credentials in Jenkins
                 )
 
                 rtMavenDeployer (
                     id: "MAVEN_DEPLOYER",
                     serverId: "ARTIFACTORY_SERVER",
-                    releaseRepo: "libs-release-local",
-                    snapshotRepo: "libs-snapshot-local"
+                    releaseRepo: "malai-public-release",
+                    snapshotRepo: "malai-public-snapshot"
                 )
-
-                rtMavenResolver (
-                    id: "MAVEN_RESOLVER",
-                    serverId: "ARTIFACTORY_SERVER",
-                    releaseRepo: "libs-release",
-                    snapshotRepo: "libs-snapshot"
-                )
-            }
-        }
-
-        stage('Build Maven') {
-            steps {
-
-                rtMavenRun (
-                    tool: Maven,                                                // Tool name from Jenkins configuration
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    deployerId: "MAVEN_DEPLOYER",
-                    resolverId: "MAVEN_RESOLVER"
-                )
-
             }
         }
 
