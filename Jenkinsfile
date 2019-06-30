@@ -20,14 +20,13 @@ pipeline {
         stage ('Artifactory configuration') {
             steps {
                 rtServer (
-                    id: "ARTIFACTORY_SERVER",
-                    url: "http://maven.irisa.fr/artifactory",
+                    id: "InriaArtifactoryServer",
                     credentialsId: 'credRepoInria'                                  // add credentials in Jenkins
                 )
 
                 rtMavenDeployer (
                     id: "MAVEN_DEPLOYER",
-                    serverId: "ARTIFACTORY_SERVER",
+                    serverId: "InriaArtifactoryServer",
                     releaseRepo: "malai-public-release",
                     snapshotRepo: "malai-public-snapshot"
                 )
@@ -37,8 +36,7 @@ pipeline {
         stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "ARTIFACTORY_SERVER",
-                    buildName: 'inspectorguidget-data'
+                    serverId: "InriaArtifactoryServer"
                 )
             }
         }
