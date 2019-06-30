@@ -27,6 +27,7 @@ pipeline {
             steps {
                 rtServer (
                     id: "InriaArtifactoryServer",
+                    url: 'http://maven.irisa.fr/artifactory',
                     credentialsId: 'credRepoInria'                                  // add credentials in Jenkins
                 )
 
@@ -42,11 +43,17 @@ pipeline {
         stage ('Build') {
             steps {
                 rtMavenRun (
-                    // Tool name from Jenkins configuration.
-                    tool: 'Maven',
                     pom: 'pom.xml',
                     goals: 'clean install',
                     deployerId: 'MAVEN_DEPLOYER'
+                )
+            }
+        }
+
+        stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "InriaArtifactoryServer"
                 )
             }
         }
