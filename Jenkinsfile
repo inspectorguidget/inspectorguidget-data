@@ -9,7 +9,7 @@ pipeline {
                 git branch: 'master', url: "https://github.com/inspectorguidget/inspectorguidget-data"
 
                 withMaven (
-                    tool: 'Maven',                                                // Tool name from Jenkins configuration
+                    maven: 'Maven',                                                // Tool name from Jenkins configuration
                     jdk: 'jdk11'
                 ) {
                     sh "mvn clean install"
