@@ -14,8 +14,8 @@ pipeline {
             steps {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
-                    url: http://maven.inria.fr/artifactory/webapp/#/home,
-                    credentialsId: credRepoInria                                  // add credentials in Jenkins
+                    url: "http://maven.inria.fr/artifactory/webapp/#/home",
+                    credentialsId: 'credRepoInria'                                  // add credentials in Jenkins
                 )
 
                 rtMavenDeployer (
@@ -38,7 +38,7 @@ pipeline {
             steps {
 
                 rtMavenRun (
-                    tool: M3,                                                // Tool name from Jenkins configuration
+                    tool: Maven,                                                // Tool name from Jenkins configuration
                     pom: 'pom.xml',
                     goals: 'clean install',
                     deployerId: "MAVEN_DEPLOYER",
