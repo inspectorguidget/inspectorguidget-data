@@ -1,19 +1,25 @@
 pipeline {
     agent any
 
-    stages {
+    tools {
+        maven 'Maven'
+        jdk 'jdk11'
+    }
 
-        stage ('Build') {
+    stages {
+        stage ('Tools Info') {
+            steps {
+                sh '''
+                    java -version
+                    mvn -v
+                '''
+            }
+        }
+
+        stage ('Git') {
             steps {
                 //going to build on the branch master
                 git branch: 'master', url: "https://github.com/inspectorguidget/inspectorguidget-data"
-
-                withMaven (
-                    maven: 'Maven',                                                // Tool name from Jenkins configuration
-                    jdk: 'jdk11'
-                ) {
-                    sh "mvn clean install"
-                }
             }
         }
 
@@ -33,12 +39,14 @@ pipeline {
             }
         }
 
-        stage ('Publish build info') {
-            steps {
-                rtPublishBuildInfo (
-                    serverId: "InriaArtifactoryServer"
-                )
-            }
+        stage ('Build') {
+            rtMavenRun (
+                // Tool name from Jenkins configuration.
+                tool: Maven,
+                pom: 'pom.xml',
+                goals: 'clean install',
+                deployerId: 'MAVEN_DEPLOYER'
+            )
         }
     }
 }
