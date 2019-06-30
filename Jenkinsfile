@@ -52,10 +52,6 @@ pipeline {
 
         stage ('Publish build info') {
             steps {
-                rtBuildInfo (
-                    captureEnv: false
-                )
-
                 rtPublishBuildInfo (
                     serverId: "InriaArtifactoryServer"
                 )
