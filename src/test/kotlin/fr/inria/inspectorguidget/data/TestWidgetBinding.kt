@@ -16,11 +16,12 @@ class TestWidgetBinding {
         val location = Location(1, 3, classref)
         val widgets = listOf(Widget("id", "type", listOf(location)))
 
-        val interaction  : Interaction = InteractoInteraction("typeName")
+        val interaction: Interaction = InteractoInteraction("typeName")
 
         widgetBinding = WidgetBinding(interaction, widgets, UICommand(location, listOf(classref)))
 
         val result = Klaxon().toJsonString(widgetBinding)
+
         widgetBindingParsed = Klaxon().parse<WidgetBinding>(result)
     }
 
