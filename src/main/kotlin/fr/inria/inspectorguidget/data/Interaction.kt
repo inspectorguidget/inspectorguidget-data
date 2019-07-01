@@ -9,4 +9,5 @@ interface Interaction {
      * Returns the name of the user interaction.
      */
     fun getName(): String
+
 }
