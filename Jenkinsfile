@@ -1,4 +1,4 @@
-det githubStatusCheck(String state, String description){
+def githubStatusCheck(String state, String description){
     def commitHash = checkout(scm).GIT_COMMIT
     githubNotify account: 'inspectorguidget',sha: "${commitHash}", status: state, description: description, credentialsId: 'github-token', repo: 'inspectorguidget-data'
 }
