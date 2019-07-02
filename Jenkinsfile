@@ -41,7 +41,7 @@ pipeline {
         }
         stage("github => pending") {
             steps {
-                githubNotify status: "PENDING", description: "Build is starting...", credentialsId: "ghToken", repo: "https://github.com/inspectorguidget/inspectorguidget-data"
+                githubNotify status: 'PENDING', description: 'Setting build status', credentialsId: 'ghToken', repo: 'inspectorguidget-data'
             }
         }
         stage ('Build') {
