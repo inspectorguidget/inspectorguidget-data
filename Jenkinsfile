@@ -39,7 +39,11 @@ pipeline {
                 )
             }
         }
-
+        stage("github => pending") {
+            steps {
+                githubNotify status: "PENDING", credentialsId: "ghToken", repo: "inspectorguidget-data"
+            }
+        }
         stage ('Build') {
             steps {
                 rtMavenRun (
