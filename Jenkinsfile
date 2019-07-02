@@ -39,11 +39,16 @@ pipeline {
                 )
             }
         }
+
         stage("github => pending") {
             steps {
-                githubNotify status: 'PENDING', description: 'Setting build status', credentialsId: 'ghToken', repo: 'inspectorguidget-data'
+                script{
+                    def commitHash = checkout(scm).GIT_COMMIT
+                }
+                githubNotify account: 'arnobl',sha: '${commitHash}', status: 'PENDING', description: 'Setting build status', credentialsId: 'ghToken', repo: 'inspectorguidget-data'
             }
         }
+
         stage ('Build') {
             steps {
                 rtMavenRun (
