@@ -45,7 +45,7 @@ pipeline {
                 script{
                     def commitHash = checkout(scm).GIT_COMMIT
                 }
-                githubNotify account: 'inspectorguidget',sha: '${commitHash}', status: 'PENDING', description: 'Setting build status', credentialsId: 'github-token', repo: 'inspectorguidget-data'
+                githubNotify account: 'inspectorguidget',sha: "${commitHash}", status: 'PENDING', description: 'Setting build status', credentialsId: 'github-token', repo: 'inspectorguidget-data'
             }
         }
 
