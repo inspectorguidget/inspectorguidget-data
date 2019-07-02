@@ -1,3 +1,4 @@
+def commitHash
 pipeline {
     agent any
 
@@ -43,7 +44,7 @@ pipeline {
         stage("github => pending") {
             steps {
                 script{
-                    def commitHash = checkout(scm).GIT_COMMIT
+                    commitHash = checkout(scm).GIT_COMMIT
                 }
                 githubNotify account: 'inspectorguidget',sha: "${commitHash}", status: 'PENDING', description: 'Setting build status', credentialsId: 'github-token', repo: 'inspectorguidget-data'
             }
