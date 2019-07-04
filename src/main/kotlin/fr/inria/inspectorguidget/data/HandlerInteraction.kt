@@ -7,5 +7,6 @@ data class HandlerInteraction(val handlers: List<Handler>) : Interaction {
         }
     }
 
+    override val type = "HandlerInteraction"
     override fun getName() = handlers[0].type
 }

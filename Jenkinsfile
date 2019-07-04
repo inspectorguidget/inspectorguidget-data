@@ -1,3 +1,8 @@
+def githubStatusCheck(String state, String description){
+    def commitHash = checkout(scm).GIT_COMMIT
+    githubNotify account: 'inspectorguidget',sha: "${commitHash}", status: state, description: description, credentialsId: 'github-token', repo: 'inspectorguidget-data'
+}
+
 pipeline {
     agent any
 
@@ -7,6 +12,15 @@ pipeline {
     }
 
     stages {
+
+        stage('Github Pending') {
+            steps{
+                script{
+                    githubStatusCheck("PENDING", "Currently building the project");
+                }
+            }
+        }
+
         stage ('Tools Info') {
             steps {
                 sh '''
@@ -56,6 +70,14 @@ pipeline {
                     serverId: "InriaArtifactoryServer"
                 )
             }
+        }
+    }
+    post{
+        success {
+            githubStatusCheck("SUCCESS", "Build succeeded");
+        }
+        failure {
+            githubStatusCheck("FAILURE", "Build failed");
         }
     }
 }
